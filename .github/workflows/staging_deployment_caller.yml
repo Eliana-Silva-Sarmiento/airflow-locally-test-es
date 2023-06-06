@@ -1,0 +1,15 @@
+name: Staging Deployment Workflow
+on:
+  pull_request:
+    branches:
+      - staging
+    types: [closed]
+jobs:
+  staging-tagging-and-Deployment:
+    uses: CondeNast/astrocloud-workflow/.github/workflows/staging_deployment.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_TOKEN }}
+      success_slack_webhook_url: ${{ secrets.SUCCESS_SLACK_WEBHOOK_URL }}
+      failure_slack_webhook_url: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
+      stg_astrocloud_key_id: ${{ secrets.STG_ASTROCLOUD_KEY_ID }}
+      stg_astrocloud_key_secret: ${{ secrets.STG_ASTROCLOUD_KEY_SECRET }}

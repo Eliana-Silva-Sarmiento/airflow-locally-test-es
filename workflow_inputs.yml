@@ -1,0 +1,53 @@
+development_deployment:
+  #Boolean values "yes" and "no" and version number should be inside double quotes is must
+  need_tardis_whl_file: "no"
+  #Tardis rreponame and version should not be empty
+  #Leave the default value if tardis file is not needed
+  tardis_repo_name: condenast/tardis
+  tardis_version: "0.1.3"
+  github_token_inside_dockerfile: "no"
+
+staging_pr:
+  #Boolean values "yes" and "no" should be inside double quotes is must
+  need_dag_pylint: "yes"
+  dag_path: ./dags/*.py
+
+staging_deployment:
+  #Boolean values "yes" and "no" and version number should be inside double quotes is must
+  need_tardis_whl_file: "no"
+  #Tardis rreponame and version should not be empty
+  #Leave the default value if tardis file is not needed
+  tardis_repo_name: condenast/tardis
+  tardis_version: "0.1.3"
+  github_token_inside_dockerfile: "no"
+
+production_pr:
+  staging_branch_name: staging
+
+production_deployment:
+  #Boolean values "yes" and "no" and version number should be inside double quotes is must
+  need_tardis_whl_file: "no"
+  #Tardis rreponame and version should not be empty
+  #Leave the default value if tardis file is not needed
+  tardis_repo_name: condenast/tardis
+  tardis_version: "0.1.3"
+  github_token_inside_dockerfile: "no"
+
+rollback_deployment:
+  #Boolean values "yes" and "no" and version number should be inside double quotes is must
+  need_tardis_whl_file: "no"
+  #Tardis rreponame and version should not be empty
+  #Leave the default value if tardis file is not needed
+  tardis_repo_name: condenast/tardis
+  tardis_version: "0.1.3"
+  github_token_inside_dockerfile: "no"
+
+staging_branch_recreation:
+  #Need to provide the exact staging branch name
+  staging_branch_name: staging
+  #Need to provide the exact branch name from where the staging branch should be recreated
+  source_branch_name: production
+
+stale_branches_deletion:
+  #We can change the number of days here but the number should be inside double quotes
+  number_of_days_no_commit_branch: "45"

@@ -1,0 +1,14 @@
+name: Production PR Workflow
+on:
+  pull_request:
+    branches:
+      - production
+    types: [opened]
+
+jobs:
+  production-pr:
+    uses: CondeNast/astrocloud-workflow/.github/workflows/production_pr.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_TOKEN }}
+      success_slack_webhook_url: ${{ secrets.SUCCESS_SLACK_WEBHOOK_URL }}
+      failure_slack_webhook_url: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}

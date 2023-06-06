@@ -1,0 +1,13 @@
+name: Staging PR Workflow
+on:
+  pull_request:
+    branches:
+      - staging
+    types: [opened]
+jobs:
+  staging-pr-ci:
+    uses: CondeNast/astrocloud-workflow/.github/workflows/staging_pr.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_TOKEN }}
+      success_slack_webhook_url: ${{ secrets.SUCCESS_SLACK_WEBHOOK_URL }}
+      failure_slack_webhook_url: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}

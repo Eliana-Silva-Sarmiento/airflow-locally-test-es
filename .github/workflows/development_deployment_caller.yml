@@ -1,0 +1,16 @@
+name: Development Deployment Workflow
+on:
+  pull_request:
+    branches:
+      - development
+    types: [closed]
+    
+jobs:
+  development-deployment:
+    uses: CondeNast/astrocloud-workflow/.github/workflows/development_deployment.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_TOKEN }}
+      success_slack_webhook_url: ${{ secrets.SUCCESS_SLACK_WEBHOOK_URL }}
+      failure_slack_webhook_url: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
+      dev_astrocloud_key_id: ${{ secrets.DEV_ASTROCLOUD_KEY_ID }}
+      dev_astrocloud_key_secret: ${{ secrets.DEV_ASTROCLOUD_KEY_SECRET }}

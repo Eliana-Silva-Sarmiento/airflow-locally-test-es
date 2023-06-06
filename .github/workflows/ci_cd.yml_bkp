@@ -1,0 +1,53 @@
+name: Astronomer CI - Deploy Code (Multiple Branches)
+
+on:
+  push:
+    branches: [dev]
+  pull_request:
+    types:
+      - closed
+    branches: [staging, main]
+
+jobs:
+  dev-push:
+    if: ${{ github.ref_name == 'develop' }}
+    env:
+      ## Sets DEV Deployment API key credentials as environment variables
+      ASTRONOMER_KEY_ID: ${{ secrets.DEV_ASTRONOMER_KEY_ID }}
+      ASTRONOMER_KEY_SECRET: ${{ secrets.DEV_ASTRONOMER_KEY_SECRET }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2.3.4
+    - name: Deploy to Astro
+      run: |
+        brew install astronomer/tap/astro
+        astrodeploy ${{ secrets.DEV_ASTRONOMER_DEPLOYMENT_ID }}
+  stg-push:
+    if: ${{ github.ref_name == 'staging' }} && github.event.action == 'closed' && github.event.pull_request.merged == true
+    env:
+      ## Sets PROD Deployment API key credentials as environment variables
+      ASTRONOMER_KEY_ID: ${{ secrets.STG_ASTRONOMER_KEY_ID }}
+      ASTRONOMER_KEY_SECRET: ${{ secrets.STG_ASTRONOMER_KEY_SECRET }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2.3.4
+      - name: Deploy to Astro
+        run: |
+          brew install astronomer/tap/astro
+          astro deploy ${{ secrets.STG_ASTRONOMER_DEPLOYMENT_ID }}
+  prod-push:
+    if: ${{ github.ref_name == 'production' }} && github.event.action == 'closed' && github.event.pull_request.merged == true
+    env:
+      ## Sets PROD Deployment API key credentials as environment variables
+      ASTRONOMER_KEY_ID: ${{ secrets.PROD_ASTRONOMER_KEY_ID }}
+      ASTRONOMER_KEY_SECRET: ${{ secrets.PROD_ASTRONOMER_KEY_SECRET }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout repo
+      uses: actions/checkout@v2.3.4
+    - name: Deploy to Astro
+      run: |
+        brew install astronomer/tap/astro
+        astro deploy ${{ secrets.PROD_ASTRONOMER_DEPLOYMENT_ID }}

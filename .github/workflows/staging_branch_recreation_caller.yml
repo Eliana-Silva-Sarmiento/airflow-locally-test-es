@@ -1,0 +1,12 @@
+name: Staging Branch Recreation Workflow
+on:
+  schedule:
+    - cron: 0 3 * * 0,1,4,5,6
+jobs:
+  staging-branch-recreation:
+    if: github.repository != 'CondeNast/astrocloud-template'
+    uses: CondeNast/astrocloud-workflow/.github/workflows/staging_branch_recreation.yml@main
+    secrets:
+      gh_token: ${{ secrets.GH_TOKEN }}
+      success_slack_webhook_url: ${{ secrets.SUCCESS_SLACK_WEBHOOK_URL }}
+      failure_slack_webhook_url: ${{ secrets.FAILURE_SLACK_WEBHOOK_URL }}
